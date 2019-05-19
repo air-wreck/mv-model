@@ -97,5 +97,6 @@ for node in KharifGangesModel.nodes:
     node_type = 'Irrigation District' if node.area > 0 else 'Urban Area'
     print('%s: %s' % (node.name, node_type))
     for reach, _ in KharifGangesModel.edges[node.name]:
-        print('  %s: [%.3f] %f MCM' % (reach.name, reach.pollution, reach.flow))
+        print('  %s: [%.3f] %f MCM / year' % (reach.name,
+                                              reach.pollution, reach.flow))
 
