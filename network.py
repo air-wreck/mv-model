@@ -30,8 +30,11 @@ class Node(object):
 
         # compute water demand, in MCM / year
         # note that India uses half-year growing cycles, Kharif and Rabi
-        agricultural_demand = crop_needs[crop] * area * 2
-        urban_demand = population * scarcity_threshold / 1000000
+        # if multiple crops are given, we average their water needs
+        crops = self.crop.split(' ')
+        avg_crop_need = sum([self.crop_needs[c] for c in crops]) / len(crops)
+        agricultural_demand = avg_crop_need * area * 2
+        urban_demand = population * self.scarcity_threshold / 1000000
         self.demand = agricultural_demand + urban_demand
 
 class IrrDistrict(Node):
@@ -72,19 +75,20 @@ class Graph(object):
     # add a Node object to this Graph
     def add_node(self, node):
         self.nodes += [node]
-        self.edges[node] = []
+        self.edges[node.name] = []
 
     def add_nodes_from_list(self, node_list):
         for node in node_list:
             self.add_node(node)
 
     # add an Edge object to this Graph
-    def add_edge(self, edge, src_name, dst_name):
+    def add_edge(self, edge, src, dst):
+        src_name, dst_name = src.name, dst.name
         self.edges[src_name] += [(edge, dst_name)]
 
     def add_edges_from_list(self, edge_list):
-        for edge, src_name, dst_name in edge_list:
-            self.add_edge(edge, src_name, dst_name)
+        for edge, src, dst in edge_list:
+            self.add_edge(edge, src, dst)
 
     # find a node object by name
     def get_node(self, name):
@@ -122,7 +126,7 @@ class Graph(object):
     # this can be used to, for instance, simulate precipitation
     def apply_area_offset(self, offset_per_area):
         for node in self.nodes:
-            node.demand += node.area * offset_per_area_
+            node.demand += node.area * offset_per_area
 
     # solve for the flow through a given Edge
     # if the flow is unknown, we recursively back-trace, solving as we go
@@ -137,10 +141,10 @@ class Graph(object):
         # find this edge's source Node
         source = None
         for key, val in self.edges.items():
-            e, _ = val
-            if e.name == edge.name:
-                source = self.get_node(key)
-                break
+            for e, _ in val:
+                if e.name == edge.name:
+                    source = self.get_node(key)
+                    break
         if source is None:
             raise('Edge not found in graph')
 
@@ -151,9 +155,9 @@ class Graph(object):
         # find all inflow Edges of that source Node
         inflows = []
         for key, val in self.edges.items():
-            e, d = val
-            if d == source.name:
-                inflows += [e]
+            for e, d in val:
+                if d == source.name:
+                    inflows += [e]
 
         # recursively get all volume inflows of this node
         vol_inflows = [self.get_flow(f) for f in inflows]
