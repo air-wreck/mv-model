@@ -1,0 +1,91 @@
+=== Kharif Season Simulation ===
+A: Urban Area [65381 MCM/yr]
+  Y-2 [0.800]: 0.000000 MCM/yr ( A => L )
+B: Irrigation District [19662 MCM/yr]
+  Ga-1 [0.800]: 2184453.747419 MCM/yr ( B => U-2 )
+C: Irrigation District [-3001 MCM/yr]
+  Y-5 [0.800]: 10190.437173 MCM/yr ( C => D )
+D: Irrigation District [-7708 MCM/yr]
+  Y-6 [0.800]: 26264.624474 MCM/yr ( D => E )
+E: Irrigation District [2953 MCM/yr]
+  Y-7 [0.800]: 562175.823476 MCM/yr ( E => U-3 )
+F: Irrigation District [10859 MCM/yr]
+  Ga-2 [0.800]: 539603.095290 MCM/yr ( F => U-3 )
+  K-1 [0.800]: 539603.095290 MCM/yr ( F => E )
+G: Irrigation District [9965 MCM/yr]
+  Go-1 [0.800]: 1074892.413101 MCM/yr ( G => H )
+H: Irrigation District [6836 MCM/yr]
+  Ga-3 [0.800]: 2163670.574520 MCM/yr ( H => N )
+I: Irrigation District [9983 MCM/yr]
+  Gh-1 [0.800]: 934248.223167 MCM/yr ( I => N )
+J: Irrigation District [2286 MCM/yr]
+  H-1 [0.800]: 3062299.193756 MCM/yr ( J => K )
+K: Irrigation District [15292 MCM/yr]
+  OUT [1.000]: 3043183.916371 MCM/yr ( K => EXTERN )
+L: Irrigation District [28006 MCM/yr]
+  Y-3 [0.800]: 0.000000 MCM/yr ( L => M )
+M: Irrigation District [-15451 MCM/yr]
+  Y-4 [0.800]: 6438.298776 MCM/yr ( M => U-2 )
+  C-1 [0.800]: 6438.298776 MCM/yr ( M => C )
+  B-1 [0.800]: 6438.298776 MCM/yr ( M => D )
+N: Urban Area [26208 MCM/yr]
+  Ga-4 [0.800]: 3065157.812709 MCM/yr ( N => J )
+U-2: Urban Area [4264 MCM/yr]
+  Ga-5 [0.800]: 1092780.527832 MCM/yr ( U-2 => F )
+  Go-3 [0.800]: 1092780.527832 MCM/yr ( U-2 => U-4 )
+U-3: Urban Area [1715 MCM/yr]
+  Ga-6 [0.800]: 1099634.175490 MCM/yr ( U-3 => U-5 )
+U-4: Urban Area [4344 MCM/yr]
+  Go-2 [0.800]: 1087349.761044 MCM/yr ( U-4 => G )
+U-5: Urban Area [1848 MCM/yr]
+  Ga-7 [0.800]: 1097323.802893 MCM/yr ( U-5 => H )
+EXTERN: Urban Area [0 MCM/yr]
+  Y-1 [0.800]: 50500.000000 MCM/yr ( EXTERN => A )
+  Ga-0 [0.800]: 2209032.000000 MCM/yr ( EXTERN => B )
+  Gh-0 [0.800]: 946728.000000 MCM/yr ( EXTERN => I )
+
+=== Rabi Season Simulation ===
+A: Urban Area [93110 MCM/yr]
+  Y-2 [0.800]: 0.000000 MCM/yr ( A => L )
+B: Irrigation District [19471 MCM/yr]
+  Ga-1 [0.800]: 501030.783108 MCM/yr ( B => U-2 )
+C: Irrigation District [1014 MCM/yr]
+  Y-5 [0.800]: 0.000000 MCM/yr ( C => D )
+D: Irrigation District [2605 MCM/yr]
+  Y-6 [0.800]: 0.000000 MCM/yr ( D => E )
+E: Irrigation District [1386 MCM/yr]
+  Y-7 [0.800]: 117237.192128 MCM/yr ( E => U-3 )
+F: Irrigation District [7926 MCM/yr]
+  Ga-2 [0.800]: 118970.820288 MCM/yr ( F => U-3 )
+  K-1 [0.800]: 118970.820288 MCM/yr ( F => E )
+G: Irrigation District [7274 MCM/yr]
+  Go-1 [0.800]: 233326.192834 MCM/yr ( G => H )
+H: Irrigation District [14186 MCM/yr]
+  Ga-3 [0.800]: 447346.355415 MCM/yr ( H => N )
+I: Irrigation District [47576 MCM/yr]
+  Gh-1 [0.800]: 0.000000 MCM/yr ( I => N )
+J: Irrigation District [11127 MCM/yr]
+  H-1 [0.800]: 404406.422294 MCM/yr ( J => K )
+K: Irrigation District [15143 MCM/yr]
+  OUT [1.000]: 385477.050457 MCM/yr ( K => EXTERN )
+L: Irrigation District [9271 MCM/yr]
+  Y-3 [0.800]: 0.000000 MCM/yr ( L => M )
+M: Irrigation District [11379 MCM/yr]
+  Y-4 [0.800]: 0.000000 MCM/yr ( M => U-2 )
+  C-1 [0.800]: 0.000000 MCM/yr ( M => C )
+  B-1 [0.800]: 0.000000 MCM/yr ( M => D )
+N: Urban Area [23224 MCM/yr]
+  Ga-4 [0.800]: 418315.180851 MCM/yr ( N => J )
+U-2: Urban Area [4264 MCM/yr]
+  Ga-5 [0.800]: 247849.896289 MCM/yr ( U-2 => F )
+  Go-3 [0.800]: 247849.896289 MCM/yr ( U-2 => U-4 )
+U-3: Urban Area [1715 MCM/yr]
+  Ga-6 [0.800]: 234063.269140 MCM/yr ( U-3 => U-5 )
+U-4: Urban Area [4344 MCM/yr]
+  Go-2 [0.800]: 242419.129501 MCM/yr ( U-4 => G )
+U-5: Urban Area [1848 MCM/yr]
+  Ga-7 [0.800]: 231752.896543 MCM/yr ( U-5 => H )
+EXTERN: Urban Area [0 MCM/yr]
+  Y-1 [0.800]: 3100.000000 MCM/yr ( EXTERN => A )
+  Ga-0 [0.800]: 525370.000000 MCM/yr ( EXTERN => B )
+  Gh-0 [0.800]: 24357.224000 MCM/yr ( EXTERN => I )

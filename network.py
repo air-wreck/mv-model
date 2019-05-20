@@ -63,6 +63,7 @@ class Edge(object):
         self.name = name
         self.flow = flow
         self.pollution = pollution
+        self.root = False   # root nodes in the flow network
 
 class Graph(object):
     # a Graph represents a river basin network
@@ -110,6 +111,14 @@ class Graph(object):
         children_names = [dst_name for _, dst_name in self.edges[node.name]]
         return [self.get_node(name for name in children_names)]
 
+    # set all reaches with nonnegative flows as root flows
+    # if false, unset all reaches as root flows
+    def set_root(self, to=True):
+        for _, val in self.edges.items():
+            for reach, _ in val:
+                if reach.flow > 0:
+                    reach.root = to
+
     # apply a constant demand offset to each Node in this Graph
     # this can be used to, for instance, simulate drawing from an aquifer
     # if distributed, the offset is proportionally handed out to the nodes
@@ -146,7 +155,7 @@ class Graph(object):
                     source = self.get_node(key)
                     break
         if source is None:
-            raise('Edge not found in graph')
+            raise Exception('Edge not found in graph')
 
         # find all outflow Edges of that source Node
         # this should include the original argument 'edge'
@@ -176,20 +185,65 @@ class Graph(object):
             total_draw += draw
         net_outflow = sum(vol_inflows) - total_draw
 
-        if net_outflow < 0:
-            raise('Water supply could not be solved at node [%s]' % source.name)
+        # compare against 1 because float comparisons against 0 are sketch
+        if net_outflow < 0 or D > 1:
+            print('excess demand is D = %d' % D)
+            print('inflows are: %s' % ' '.join([str(f.flow) for f in inflows]))
+            raise Exception('Water supply could not be solved at node [%s]' \
+                                                                  % source.name)
 
         # since we do not have historical data, divide the outflows evenly
         for o in outflows:
             o.flow = net_outflow / len(outflows)
         return edge.flow
 
-    # clear all the flows after solving
+    # clear all the flows after solving, except for root flows
     # this resets all Edge flows to -1
     # this should be doable from the outside, since Edges are just references,
     # but it's more convenient to do here
-    def clear_all_flows(self):
+    def clear_all_flows(self, skip=[]):
         for _, val in self.edges.items():
-            edge, _ = val
-            edge.flow = -1
+            for edge, _ in val:
+                if edge.name not in map(lambda e: e.name, skip) \
+                         and not edge.root:
+                    edge.flow = -1
+
+    # pretty-print a Node
+    def report_node(self, node):
+        node_type = 'Urban Area'
+        if node.area > 0:
+            if node.population < 100:
+                node_type = 'Irrigation District'
+            else:
+                node.type = 'Combined'
+        return '%s: %s [%d MCM/yr]' % (node.name, node_type, node.demand)
+
+    # pretty print an Edge
+    def report_edge(self, edge):
+        # find source and destination names
+        src = ''
+        dst = ''
+        for key, val in self.edges.items():
+            for e, d in val:
+                if e.name == edge.name:
+                    src = key
+                    dst = d
+        return '%s [%.3f]: %f MCM/yr ( %s => %s )' % (edge.name,
+                                                      edge.pollution,
+                                                      edge.flow,
+                                                      src, dst)
+
+    def quick_print(self):
+        for key, val in self.edges.items():
+            for e, _ in val:
+                print('%s, %f' % (e.name, e.flow))
+
+    # pretty-print a nice report
+    def report(self):
+        report = []
+        for node in self.nodes:
+            report += [self.report_node(node)]
+            for reach, _ in self.edges[node.name]:
+                report += ['  ' + self.report_edge(reach)]
+        return '\n'.join(report)
 
