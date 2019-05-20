@@ -187,6 +187,9 @@ class Graph(object):
 
         # compare against 1 because float comparisons against 0 are sketch
         if net_outflow < 0 or D > 1:
+            print('we are stuck on %s, parent node %s' % (edge.name,
+                                                          source.name))
+            print('original demand is %d' % source.demand)
             print('excess demand is D = %d' % D)
             print('inflows are: %s' % ' '.join([str(f.flow) for f in inflows]))
             raise Exception('Water supply could not be solved at node [%s]' \

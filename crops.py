@@ -2,8 +2,11 @@
 
 from network import Node, IrrDistrict
 
+class CropPattern:
+    pass
+
 # Kharif (summer monsoon) season cropping patterns
-class KharifCrops(object):
+class KharifCrops(CropPattern):
     # seasonal rainfall, in m / year
     # this assumes that the season is half a year
     rainfall = 0.84 * 2
@@ -51,7 +54,7 @@ class KharifCrops(object):
     N = Node('N', 'sugarcane', 10822.165, 1684222)
 
 # Rabi (winter) season cropping patterns
-class RabiCrops(object):
+class RabiCrops(CropPattern):
     # seasonal rainfall, in m / year
     # this assumes that the season is half a year
     rainfall = 0.16 * 2

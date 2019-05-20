@@ -1,7 +1,7 @@
 # the actual math model
 
 from network import UrbArea, Node, Edge, Graph
-from crops import KharifCrops, RabiCrops
+from crops import CropPattern, KharifCrops, RabiCrops
 
 # cities --- exist for both models
 U2 = UrbArea('U-2', 2765348)  # Kanpur
@@ -15,21 +15,21 @@ EXTERN = Node('EXTERN', 'none', 0, 0)
 # base river reaches --- exist for both models
 class BaseRivers(object):
     def __init__(self):
-        self.Y1 = Edge('Y-1', -1, 0.8)    # Yamuna
-        self.Y2 = Edge('Y-2', -1, 0.4)
-        self.Y3 = Edge('Y-3', -1, 0.4)
-        self.Y4 = Edge('Y-4', -1, 0.4)
-        self.Y5 = Edge('Y-5', -1, 0.4)
-        self.Y6 = Edge('Y-6', -1, 0.4)
-        self.Y7 = Edge('Y-7', -1, 0.4)
-        self.Ga1 = Edge('Ga-1', -1, 0.8)  # Ganges
-        self.Ga2 = Edge('Ga-2', -1, 0.8)
-        self.Ga3 = Edge('Ga-3', -1, 0.8)
-        self.Ga4 = Edge('Ga-4', -1, 0.8)
-        self.Ga5 = Edge('Ga-5', -1, 0.8)
-        self.Ga6 = Edge('Ga-6', -1, 0.8)
-        self.Ga7 = Edge('Ga-7', -1, 0.8)
-        self.Ga8 = Edge('Ga-8', -1, 0.8)
+        self.Y1 = Edge('Y-1', -1, 0.9)    # Yamuna
+        self.Y2 = Edge('Y-2', -1, 0.42)
+        self.Y3 = Edge('Y-3', -1, 0.42)
+        self.Y4 = Edge('Y.42', -1, 0.42)
+        self.Y5 = Edge('Y-5', -1, 0.42)
+        self.Y6 = Edge('Y-6', -1, 0.42)
+        self.Y7 = Edge('Y-7', -1, 0.42)
+        self.Ga1 = Edge('Ga-1', -1, 0.59)  # Ganges
+        self.Ga2 = Edge('Ga-2', -1, 0.59)
+        self.Ga3 = Edge('Ga-3', -1, 0.59)
+        self.Ga4 = Edge('Ga-4', -1, 0.59)
+        self.Ga5 = Edge('Ga-5', -1, 0.59)
+        self.Ga6 = Edge('Ga-6', -1, 0.59)
+        self.Ga7 = Edge('Ga-7', -1, 0.59)
+        self.Ga8 = Edge('Ga-8', -1, 0.59)
         self.Go1 = Edge('Go-1', -1, 0.8)  # Gomti
         self.Go2 = Edge('Go-2', -1, 0.8)
         self.Go3 = Edge('Go-3', -1, 0.8)
@@ -103,11 +103,18 @@ def populate_network(model, Crops, Rivers):
     # apply rainfall offset
     model.apply_area_offset(-Crops.rainfall)
 
+    # apply rest of population to fields
+    districts = filter(lambda x: issubclass(x.__class__, Node),
+                       [k for _, k in vars(Crops).items()])
+    total_area = sum([d.area for d in districts])
+    pop_density = 66308416.96 / total_area
+    model.apply_area_offset(pop_density * Node.scarcity_threshold / 1000000)
+
 # Kharif season model
 KharifRivers = BaseRivers()
 KharifRivers.Y1.flow = 93094.92
-# KharifRivers.Y1.flow = 120000
-KharifRivers.Ga0.flow = 2209032
+# KharifRivers.Ga0.flow = 2209032
+KharifRivers.Ga0.flow = 525370.9248
 KharifRivers.Gh0.flow = 946728
 KharifRivers.K2.flow = 9800
 KharifRivers.B2.flow = 21000
