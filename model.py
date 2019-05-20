@@ -16,12 +16,12 @@ EXTERN = Node('EXTERN', 'none', 0, 0)
 class BaseRivers(object):
     def __init__(self):
         self.Y1 = Edge('Y-1', -1, 0.8)    # Yamuna
-        self.Y2 = Edge('Y-2', -1, 0.8)
-        self.Y3 = Edge('Y-3', -1, 0.8)
-        self.Y4 = Edge('Y-4', -1, 0.8)
-        self.Y5 = Edge('Y-5', -1, 0.8)
-        self.Y6 = Edge('Y-6', -1, 0.8)
-        self.Y7 = Edge('Y-7', -1, 0.8)
+        self.Y2 = Edge('Y-2', -1, 0.4)
+        self.Y3 = Edge('Y-3', -1, 0.4)
+        self.Y4 = Edge('Y-4', -1, 0.4)
+        self.Y5 = Edge('Y-5', -1, 0.4)
+        self.Y6 = Edge('Y-6', -1, 0.4)
+        self.Y7 = Edge('Y-7', -1, 0.4)
         self.Ga1 = Edge('Ga-1', -1, 0.8)  # Ganges
         self.Ga2 = Edge('Ga-2', -1, 0.8)
         self.Ga3 = Edge('Ga-3', -1, 0.8)
@@ -29,6 +29,7 @@ class BaseRivers(object):
         self.Ga5 = Edge('Ga-5', -1, 0.8)
         self.Ga6 = Edge('Ga-6', -1, 0.8)
         self.Ga7 = Edge('Ga-7', -1, 0.8)
+        self.Ga8 = Edge('Ga-8', -1, 0.8)
         self.Go1 = Edge('Go-1', -1, 0.8)  # Gomti
         self.Go2 = Edge('Go-2', -1, 0.8)
         self.Go3 = Edge('Go-3', -1, 0.8)
@@ -70,7 +71,7 @@ def populate_network(model, Crops, Rivers):
         (Rivers.Y5, Crops.C, Crops.D),
         (Rivers.Y6, Crops.D, Crops.E),
         (Rivers.Y7, Crops.E, U3),
-        (Rivers.Ga0, EXTERN, Crops.B),
+        (Rivers.Ga0, EXTERN, Crops.L),
         (Rivers.Ga1, Crops.B, U2),
         (Rivers.Ga2, Crops.F, U3),
         (Rivers.Ga3, Crops.H, Crops.N),
@@ -78,6 +79,7 @@ def populate_network(model, Crops, Rivers):
         (Rivers.Ga5, U2, Crops.F),
         (Rivers.Ga6, U3, U5),
         (Rivers.Ga7, U5, Crops.H),
+        (Rivers.Ga8, Crops.L, Crops.B),
         (Rivers.Go1, Crops.G, Crops.H),
         (Rivers.Go2, U4, Crops.G),
         (Rivers.Go3, U2, U4),
@@ -109,7 +111,8 @@ KharifRivers.Ga0.flow = 2209032
 KharifRivers.Gh0.flow = 946728
 KharifRivers.K2.flow = 9800
 KharifRivers.B2.flow = 21000
-KharifRivers.S1.flow = 10000   # placeholder
+KharifRivers.S1.flow = 5000   # placeholder
+KharifRivers.C2.flow = 5000   # placeholder
 KharifRivers.Ag1.flow = 5000  # placeholder
 
 KharifGangesModel = Graph()

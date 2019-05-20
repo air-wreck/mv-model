@@ -31,11 +31,12 @@ def sensitivity_analysis(model, rivers, delta=1.1):
     for key, val in flows.items():
         changes = list(map(find_change, zip(flows['base'], val)))
         avg_change = sum(changes) / len(changes)
-        max_change = max(zip(changes, [x[0] for x in flows['base']]))
+        max_change = max(zip(changes, [x[0] for x in flows['base']]),
+                         key=lambda x: abs(x[0]))
         result[key] = (avg_change, max_change)
     return result
 
-result = sensitivity_analysis(KharifGangesModel, KharifRivers)
+result = sensitivity_analysis(KharifGangesModel, KharifRivers, delta=1.1)
 for key, val in result.items():
     print('%s: %.3f %.3f (%s)' % (key, val[0], val[1][0], val[1][1]))
 
