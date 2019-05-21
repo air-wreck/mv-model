@@ -16,37 +16,37 @@ EXTERN = Node('EXTERN', 'none', 0, 0)
 class BaseRivers(object):
     def __init__(self):
         self.Y1 = Edge('Y-1', -1, 0.9)    # Yamuna
-        self.Y2 = Edge('Y-2', -1, 0.42)
-        self.Y3 = Edge('Y-3', -1, 0.42)
-        self.Y4 = Edge('Y.42', -1, 0.42)
-        self.Y5 = Edge('Y-5', -1, 0.42)
-        self.Y6 = Edge('Y-6', -1, 0.42)
-        self.Y7 = Edge('Y-7', -1, 0.42)
-        self.Ga1 = Edge('Ga-1', -1, 0.59)  # Ganges
-        self.Ga2 = Edge('Ga-2', -1, 0.59)
-        self.Ga3 = Edge('Ga-3', -1, 0.59)
-        self.Ga4 = Edge('Ga-4', -1, 0.59)
-        self.Ga5 = Edge('Ga-5', -1, 0.59)
-        self.Ga6 = Edge('Ga-6', -1, 0.59)
-        self.Ga7 = Edge('Ga-7', -1, 0.59)
-        self.Ga8 = Edge('Ga-8', -1, 0.59)
-        self.Go1 = Edge('Go-1', -1, 0.8)  # Gomti
-        self.Go2 = Edge('Go-2', -1, 0.8)
-        self.Go3 = Edge('Go-3', -1, 0.8)
-        self.Gh1 = Edge('Gh-1', -1, 0.8)  # Ghaghara
-        self.Ag1 = Edge('Ag-1', -1, 0.8)  # Agra
-        self.C1 = Edge('C-1', -1, 0.8)    # Chambal
-        self.C2 = Edge('C-2', -1, 0.8)
-        self.B1 = Edge('B-1', -1, 0.8)    # Betwa
-        self.B2 = Edge('B-2', -1, 0.8)
-        self.K1 = Edge('K-1', -1, 0.8)    # Ken
-        self.K2 = Edge('K-2', -1, 0.8)
-        self.H1 = Edge('H-1', -1, 0.8)    # Hoghly
-        self.S1 = Edge('S-1', -1, 0.8)    # Son
+        self.Y2 = Edge('Y-2', -1, 0.44)
+        self.Y3 = Edge('Y-3', -1, 0.44)
+        self.Y4 = Edge('Y-4', -1, 0.44)
+        self.Y5 = Edge('Y-5', -1, 0.44)
+        self.Y6 = Edge('Y-6', -1, 0.44)
+        self.Y7 = Edge('Y-7', -1, 0.44)
+        self.Ga1 = Edge('Ga-1', -1, 0.53)  # Ganges
+        self.Ga2 = Edge('Ga-2', -1, 0.53)
+        self.Ga3 = Edge('Ga-3', -1, 0.53)
+        self.Ga4 = Edge('Ga-4', -1, 0.53)
+        self.Ga5 = Edge('Ga-5', -1, 0.53)
+        self.Ga6 = Edge('Ga-6', -1, 0.53)
+        self.Ga7 = Edge('Ga-7', -1, 0.53)
+        self.Ga8 = Edge('Ga-8', -1, 0.53)
+        self.Go1 = Edge('Go-1', -1, 0.53)  # Gomti
+        self.Go2 = Edge('Go-2', -1, 0.53)
+        self.Go3 = Edge('Go-3', -1, 0.53)
+        self.Gh1 = Edge('Gh-1', -1, 0.67)  # Ghaghara
+        self.Ag1 = Edge('Ag-1', -1, 0.44)  # Agra
+        self.C1 = Edge('C-1', -1, 0.44)    # Chambal
+        self.C2 = Edge('C-2', -1, 0.44)
+        self.B1 = Edge('B-1', -1, 0.44)    # Betwa
+        self.B2 = Edge('B-2', -1, 0.44)
+        self.K1 = Edge('K-1', -1, 0.53)    # Ken
+        self.K2 = Edge('K-2', -1, 0.53)
+        self.H1 = Edge('H-1', -1, 0.54)    # Hoghly
+        self.S1 = Edge('S-1', -1, 0.54)    # Son
 
         # pseudo-reaches for computations
-        self.Ga0 = Edge('Ga-0', -1, 0.8)
-        self.Gh0 = Edge('Gh-0', -1, 0.8)
+        self.Ga0 = Edge('Ga-0', -1, 0.53)
+        self.Gh0 = Edge('Gh-0', -1, 0.53)
         self.OUT = Edge('OUT', -1, 1)
 
 # generate a generic Ganges basin network topology
@@ -128,19 +128,25 @@ KharifGangesModel.set_root()
 
 # Rabi season model
 RabiRivers = BaseRivers()
-RabiRivers.Y1.flow = 3100
+RabiRivers.Y1.flow = 93094.92
 RabiRivers.Ga0.flow = 525370
 RabiRivers.Gh0.flow = 24357.224
+RabiRivers.K2.flow = 9800
+RabiRivers.B2.flow = 21000
+RabiRivers.S1.flow = 5000   # placeholder
+RabiRivers.C2.flow = 5000   # placeholder
+RabiRivers.Ag1.flow = 5000  # placeholder
 
 RabiGangesModel = Graph()
 populate_network(RabiGangesModel, RabiCrops, RabiRivers)
+RabiGangesModel.set_root()
 
 if __name__ == '__main__':
     print('=== Kharif Season Simulation ===')
     KharifGangesModel.get_flow(KharifRivers.OUT)
     print(KharifGangesModel.report())
-    print()
-    print('=== Rabi Season Simulation ===')
-    #RabiGangesModel.get_flow(RabiRivers.OUT)
-    #print(RabiGangesModel.report())
+    # print()
+    # print('=== Rabi Season Simulation ===')
+    # RabiGangesModel.get_flow(RabiRivers.OUT)
+    # print(RabiGangesModel.report())
 

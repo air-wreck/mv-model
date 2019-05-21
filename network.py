@@ -28,14 +28,20 @@ class Node(object):
         self.area = area
         self.population = population
 
+        self.compute_demand()
+
+    # separate so we can fiddle around and continuously recompute if needed
+    # random coefficients to twiddle/implement policy alternatives
+    def compute_demand(self, a=1, b=1):
         # compute water demand, in MCM / year
         # note that India uses half-year growing cycles, Kharif and Rabi
         # if multiple crops are given, we average their water needs
         crops = self.crop.split(' ')
         avg_crop_need = sum([self.crop_needs[c] for c in crops]) / len(crops)
-        agricultural_demand = avg_crop_need * area * 2
-        urban_demand = population * self.scarcity_threshold / 1000000
+        agricultural_demand = a * avg_crop_need * self.area * 2
+        urban_demand = b * self.population * self.scarcity_threshold / 1000000
         self.demand = agricultural_demand + urban_demand
+        return self.demand
 
 class IrrDistrict(Node):
     # an IrrDistrict is a pure irrigation district
@@ -135,7 +141,13 @@ class Graph(object):
     # this can be used to, for instance, simulate precipitation
     def apply_area_offset(self, offset_per_area):
         for node in self.nodes:
+            # print('applying offset to %s' % node.name)
+            # print('  node has area %f' % node.area)
+            # print('  original demand is %f' % node.demand)
+            # print('  area offset is %f' % offset_per_area)
+            # print('  additional offset is %f' % (node.area * offset_per_area))
             node.demand += node.area * offset_per_area
+            # print('  new demand is %f' % node.demand)
 
     # solve for the flow through a given Edge
     # if the flow is unknown, we recursively back-trace, solving as we go
