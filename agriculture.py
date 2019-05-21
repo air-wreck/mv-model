@@ -13,7 +13,9 @@ groups = {
     'FG': [kc.F, kc.G],
     'INJ': [kc.I, kc.J],
     'HK': [kc.H, kc.K],
-    'blanket': list(map(lambda x: x[1], filter(lambda x: x[0] in [c for c in 'ABCDEFGHIJKLMN'], vars(kc).items())))
+    'blanket': list(map(lambda x: x[1],
+                        filter(lambda x: x[0] in [c for c in 'ABCDEFGHIJKLMN'],
+                               vars(kc).items())))
 }
 
 base = 0
