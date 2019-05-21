@@ -113,14 +113,13 @@ def populate_network(model, Crops, Rivers):
 # Kharif season model
 KharifRivers = BaseRivers()
 KharifRivers.Y1.flow = 93094.92
-# KharifRivers.Ga0.flow = 2209032
 KharifRivers.Ga0.flow = 525370.9248
 KharifRivers.Gh0.flow = 946728
 KharifRivers.K2.flow = 9800
 KharifRivers.B2.flow = 21000
-KharifRivers.S1.flow = 5000   # placeholder
-KharifRivers.C2.flow = 5000   # placeholder
-KharifRivers.Ag1.flow = 5000  # placeholder
+KharifRivers.S1.flow = 5000
+KharifRivers.C2.flow = 5000
+KharifRivers.Ag1.flow = 5000
 
 KharifGangesModel = Graph()
 populate_network(KharifGangesModel, KharifCrops, KharifRivers)
@@ -133,9 +132,9 @@ RabiRivers.Ga0.flow = 525370
 RabiRivers.Gh0.flow = 24357.224
 RabiRivers.K2.flow = 9800
 RabiRivers.B2.flow = 21000
-RabiRivers.S1.flow = 5000   # placeholder
-RabiRivers.C2.flow = 5000   # placeholder
-RabiRivers.Ag1.flow = 5000  # placeholder
+RabiRivers.S1.flow = 5000
+RabiRivers.C2.flow = 5000
+RabiRivers.Ag1.flow = 5000
 
 RabiGangesModel = Graph()
 populate_network(RabiGangesModel, RabiCrops, RabiRivers)
